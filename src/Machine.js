@@ -13,6 +13,10 @@ class Machine {
     }
     this.snacks = inventory
   }
+
+  deposit(amount) {
+    return `You have deposited Rs ${amount}`;
+  }
 }
 
 module.exports = Machine
