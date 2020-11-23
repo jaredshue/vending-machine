@@ -77,11 +77,14 @@ describe('The vending machine', () => {
     }
 
     vendingMachine.stock([snack]);
-    vendingMachine.deposit(280);
+    vendingMachine.deposit(50);
+    vendingMachine.deposit(50);
+    vendingMachine.deposit(100);
+    vendingMachine.deposit(100);
 
     const expected = {
       item: "macadamia nuts",
-      change: [20, 10]
+      change: [50]
     }
 
     expect(vendingMachine.selectItem('macadamia nuts')).toEqual(expected);
@@ -89,21 +92,24 @@ describe('The vending machine', () => {
 
   it('returns an object with the change of the amount deposited', () =>{
     const vendingMachine = new Machine()
-    vendingMachine.deposit(30);
+    vendingMachine.deposit(50);
+    vendingMachine.deposit(100);
 
-    expect(vendingMachine.cancel()).toEqual({change: [20, 10]})
+    expect(vendingMachine.cancel()).toEqual({change: [100, 50]})
   })
 
   it('returns message if proper change cannot be returned', () => {
     const vendingMachine = new Machine()
     const snack = {
       name: 'macadamia nuts',
-      price: 5
+      price: 250
     }
     const expected = 'Cannot return proper change.  Please choose another item or cancel the transaction';
 
     vendingMachine.stock([snack]);
-    vendingMachine.deposit(5);
+    vendingMachine.deposit(100);
+    vendingMachine.deposit(100);
+    vendingMachine.deposit(100);
 
     expect(vendingMachine.selectItem('macadamia nuts')).toEqual(expected);
   })

@@ -2,6 +2,8 @@ class Machine {
   constructor() {
     this.snacks = []
     this.balance = 0;
+    this.availableChange = {};
+    this.acceptedBills = [500, 100, 50, 20, 10];
   }
 
   seeSelections() {
@@ -16,7 +18,18 @@ class Machine {
   }
 
   deposit(amount) {
+    if (!this.acceptedBills.includes(amount)) {
+      return "Unacceptable bill!";
+    }
+
     this.balance += amount;
+
+    if (this.availableChange[amount] == undefined) {
+      this.availableChange[amount] = 0;
+    }
+
+    this.availableChange[amount]++;
+
     return `You have deposited Rs ${this.balance}`;
   }
 
@@ -35,33 +48,53 @@ class Machine {
 
     if (this.balance > snack.price) {
       var difference = this.balance - snack.price;
-      var bills = [500, 100, 50, 20, 10];
 
-      for (var i in bills) {
-        while (difference / bills[i] >= 1) {
-          output.change.push(bills[i]);
-          difference -= bills[i];
+      for (var i in this.acceptedBills) {
+        var bill = this.acceptedBills[i];
+
+        if (this.availableChange[bill] == undefined) {
+          continue;
+        }
+
+        while (difference / bill >= 1) {
+          difference -= bill;
+          this.availableChange[bill]--;
+          this.balance -= bill;
+          output.change.push(bill);
         }
       }
-    }
 
-    if(output.change.length == 0){
-      return 'Cannot return proper change.  Please choose another item or cancel the transaction'
+      if (difference != 0) {
+        return 'Cannot return proper change.  Please choose another item or cancel the transaction'
+      }
     }
 
     return output;
   }
 
-  cancel(){
+  cancel() {
     var output = {change: []}
-    var bills = [500, 100, 50, 20, 10];
+    var amount = this.balance;
 
-    for (var i in bills) {
-      while (this.balance / bills[i] >= 1) {
-        output.change.push(bills[i]);
-        this.balance -= bills[i];
+    for (var i in this.acceptedBills) {
+      var bill = this.acceptedBills[i];
+
+      if (this.availableChange[bill] == undefined) {
+        continue;
+      }
+
+      while (amount / bill >= 1) {
+        amount -= bill;
+        this.availableChange[bill]--;
+        this.balance -= bill;
+        output.change.push(bill);
       }
     }
+
+    if (amount != 0) {
+      return 'Cannot return proper change.  Please choose another item or cancel the transaction'
+    }
+
     return output
   }
 }
