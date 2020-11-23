@@ -86,4 +86,11 @@ describe('The vending machine', () => {
 
     expect(vendingMachine.selectItem('macadamia nuts')).toEqual(expected);
   })
+
+  it('returns an object with the change of the amount deposited', () =>{
+    const vendingMachine = new Machine()
+    vendingMachine.deposit(30);
+
+    expect(vendingMachine.cancel()).toEqual({change: [20, 10]})
+  })
 })

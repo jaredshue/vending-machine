@@ -47,6 +47,19 @@ class Machine {
 
     return output;
   }
+
+  cancel(){
+    var output = {change: []}
+    var bills = [500, 100, 50, 20, 10];
+
+    for (var i in bills) {
+      while (this.balance / bills[i] >= 1) {
+        output.change.push(bills[i]);
+        this.balance -= bills[i];
+      }
+    }
+    return output
+  }
 }
 
 module.exports = Machine
