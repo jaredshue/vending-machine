@@ -48,4 +48,11 @@ describe('The vending machine', () => {
     vendingMachine.deposit(100);
     expect(vendingMachine.deposit(50)).toEqual(displayMessage);
   })
+
+  it('displays message indicating that an item is unavailable', () => {
+    const vendingMachine = new Machine()
+    const displayMessage = "The item you selected is unavailable"
+
+    expect(vendingMachine.selectItem()).toEqual(displayMessage);
+  })
 })

@@ -19,6 +19,10 @@ class Machine {
     this.balance += amount;
     return `You have deposited Rs ${this.balance}`;
   }
+
+  selectItem() {
+    return "The item you selected is unavailable";
+  }
 }
 
 module.exports = Machine
