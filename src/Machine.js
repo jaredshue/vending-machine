@@ -1,6 +1,7 @@
 class Machine {
   constructor() {
     this.snacks = []
+    this.balance = 0;
   }
 
   seeSelections() {
@@ -15,7 +16,8 @@ class Machine {
   }
 
   deposit(amount) {
-    return `You have deposited Rs ${amount}`;
+    this.balance += amount;
+    return `You have deposited Rs ${this.balance}`;
   }
 }
 

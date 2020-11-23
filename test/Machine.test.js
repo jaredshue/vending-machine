@@ -41,4 +41,11 @@ describe('The vending machine', () => {
     const displayMessage = "You have deposited Rs 100"
     expect(vendingMachine.deposit(100)).toEqual(displayMessage);
   })
+
+  it('displays total amount depositted when depositting money multiple times', () => {
+    const vendingMachine = new Machine()
+    const displayMessage = "You have deposited Rs 150"
+    vendingMachine.deposit(100);
+    expect(vendingMachine.deposit(50)).toEqual(displayMessage);
+  })
 })
