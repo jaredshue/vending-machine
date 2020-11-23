@@ -55,4 +55,17 @@ describe('The vending machine', () => {
 
     expect(vendingMachine.selectItem()).toEqual(displayMessage);
   })
+
+  it('displays message indicating that a deposit amount is insufficient when selecting an item', () => {
+    const vendingMachine = new Machine()
+    const snack = {
+      name: 'macadamia nuts',
+      price: 250
+    }
+    const displayMessage = "Your deposit is insufficient.  Please add Rs 250 for this item"
+
+    vendingMachine.stock([snack]);
+
+    expect(vendingMachine.selectItem('macadamia nuts')).toEqual(displayMessage);
+  })
 })

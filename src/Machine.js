@@ -20,8 +20,17 @@ class Machine {
     return `You have deposited Rs ${this.balance}`;
   }
 
-  selectItem() {
-    return "The item you selected is unavailable";
+  selectItem(name) {
+    var snack = this.snacks.filter(x => x.name == name)[0];
+
+    if (snack == undefined) {
+      return "The item you selected is unavailable";
+    }
+    
+    if (this.balance < snack.price) {
+      var difference = snack.price - this.balance;
+      return `Your deposit is insufficient.  Please add Rs ${difference} for this item`;
+    }
   }
 }
 
