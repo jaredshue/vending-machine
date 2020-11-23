@@ -45,6 +45,10 @@ class Machine {
       }
     }
 
+    if(output.change.length == 0){
+      return 'Cannot return proper change.  Please choose another item or cancel the transaction'
+    }
+
     return output;
   }
 

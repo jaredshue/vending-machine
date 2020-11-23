@@ -93,4 +93,18 @@ describe('The vending machine', () => {
 
     expect(vendingMachine.cancel()).toEqual({change: [20, 10]})
   })
+
+  it('returns message if proper change cannot be returned', () => {
+    const vendingMachine = new Machine()
+    const snack = {
+      name: 'macadamia nuts',
+      price: 5
+    }
+    const expected = 'Cannot return proper change.  Please choose another item or cancel the transaction';
+
+    vendingMachine.stock([snack]);
+    vendingMachine.deposit(5);
+
+    expect(vendingMachine.selectItem('macadamia nuts')).toEqual(expected);
+  })
 })
