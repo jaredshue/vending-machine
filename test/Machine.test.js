@@ -68,4 +68,22 @@ describe('The vending machine', () => {
 
     expect(vendingMachine.selectItem('macadamia nuts')).toEqual(displayMessage);
   })
+
+  it('returns an object with the item and an array of bills to equal the correct change', () => {
+    const vendingMachine = new Machine()
+    const snack = {
+      name: 'macadamia nuts',
+      price: 250
+    }
+
+    vendingMachine.stock([snack]);
+    vendingMachine.deposit(280);
+
+    const expected = {
+      item: "macadamia nuts",
+      change: [20, 10]
+    }
+
+    expect(vendingMachine.selectItem('macadamia nuts')).toEqual(expected);
+  })
 })

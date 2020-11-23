@@ -21,6 +21,7 @@ class Machine {
   }
 
   selectItem(name) {
+    var output = { item: name, change: [] };
     var snack = this.snacks.filter(x => x.name == name)[0];
 
     if (snack == undefined) {
@@ -31,6 +32,20 @@ class Machine {
       var difference = snack.price - this.balance;
       return `Your deposit is insufficient.  Please add Rs ${difference} for this item`;
     }
+
+    if (this.balance > snack.price) {
+      var difference = this.balance - snack.price;
+      var bills = [500, 100, 50, 20, 10];
+
+      for (var i in bills) {
+        while (difference / bills[i] >= 1) {
+          output.change.push(bills[i]);
+          difference -= bills[i];
+        }
+      }
+    }
+
+    return output;
   }
 }
 
